@@ -1,12 +1,17 @@
 package com.template.app.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -41,9 +46,21 @@ public class CompanyEntity implements IEntity<Long> {
 	@Column
 	private String name;
 	
-	public CompanyEntity(Long id, String name) {
+	@OneToMany (targetEntity = EmployeeEntity.class, fetch = FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="company")
+	private List<EmployeeEntity> employees;			
+
+	public CompanyEntity(Long id, String name, List<EmployeeEntity> employees) {
 		this.id = id;
 		this.name = name;
+		this.employees = employees;
+	}
+
+	public List<EmployeeEntity> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<EmployeeEntity> employees) {
+		this.employees = employees;
 	}
 
 	public String getName() {

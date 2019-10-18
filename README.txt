@@ -2,7 +2,9 @@ README
 
 Comments:
 =========
+http://localhost:8080/templatejee/rest/company/all
 
+http://localhost:8080/templatejee/rest/employee/all
 
 
 Commands:

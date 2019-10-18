@@ -2,6 +2,7 @@ package com.template.app.rest.company;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,15 +21,15 @@ import com.template.app.service.CompanyService;
 @Produces({ MediaType.APPLICATION_JSON })
 @Consumes({ MediaType.APPLICATION_JSON })
 public class CompanyRest {
-	
 
+	@Inject
+	private CompanyService companyService;
+		
 	@GET
 	@Path("/all")
 	public List<CompanyEntity> getAllCompanies() throws AppException{
-		
-		CompanyService cs = new CompanyService();		
-
-		List<CompanyEntity> listCompanies = cs.retrieveAll();
+				
+		List<CompanyEntity> listCompanies = companyService.retrieveAll();
 		return listCompanies;
 	}
 	
