@@ -1,6 +1,5 @@
 package com.template.app.service.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -8,6 +7,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 
 import com.template.app.entity.CompanyEntity;
 import com.template.app.exception.AppException;
@@ -50,5 +53,25 @@ public class CompanyRepository {
 			throw AppBeanMessages.PERSISTENCE_ERROR.create(e, e.getMessage());
 		}
 	}
+	public CompanyEntity get(Long id) {
+		try {
+			CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+			CriteriaQuery q = cb.createQuery(CompanyEntity.class);
+			Root o = q.from(CompanyEntity.class);
+			o.fetch("employees", JoinType.LEFT);
+			q.select(o);
+			q.where(cb.equal(o.get("id"), id));
+
+			CompanyEntity c = (CompanyEntity)getEntityManager().createQuery(q).getSingleResult();	
+
+			return c;
+
+		} catch (AppException e) {
+			throw e;
+		} catch (Exception e) {
+			throw AppBeanMessages.PERSISTENCE_ERROR.create(e, e.getMessage());
+		}
+	}
+	
 	
 }

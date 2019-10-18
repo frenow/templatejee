@@ -18,9 +18,13 @@ public class CompanyService {
 
 	public List<CompanyEntity> retrieveAll() {			
 		System.out.println("service");
-		List<CompanyEntity> companyList = companyRepository.retrieveAll();
-		
+		List<CompanyEntity> companyList = companyRepository.retrieveAll();		
 		return companyList;
 			
 	}
+	public CompanyEntity get(Long id) {
+		System.out.println("service");
+		CompanyEntity c = companyRepository.get(id);
+		return c;
+	}	
 }
