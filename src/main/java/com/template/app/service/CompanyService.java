@@ -26,5 +26,13 @@ public class CompanyService {
 		System.out.println("service");
 		CompanyEntity c = companyRepository.get(id);
 		return c;
+	}
+	public CompanyEntity create(CompanyEntity companyEntity) {
+		return companyRepository.persist(companyEntity);
+		
+	}
+	public void delete(CompanyEntity companyEntity) {
+		companyRepository.delete(companyEntity);
+		
 	}	
 }

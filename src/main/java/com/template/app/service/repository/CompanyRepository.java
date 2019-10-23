@@ -72,6 +72,29 @@ public class CompanyRepository {
 			throw AppBeanMessages.PERSISTENCE_ERROR.create(e, e.getMessage());
 		}
 	}
+
+	public CompanyEntity persist(CompanyEntity companyEntity) {
+		try {
+			getEntityManager().persist(companyEntity);
+			return companyEntity;
+		} catch (AppException e) {
+			throw e;
+		} catch (Exception e) {
+			throw AppBeanMessages.PERSISTENCE_ERROR.create(e, e.getMessage());
+		}
+		
+	}
+
+	public void delete(CompanyEntity companyEntity) {
+		try {
+			getEntityManager().remove(companyEntity);
+		} catch (AppException e) {
+			throw e;
+		} catch (Exception e) {
+			throw AppBeanMessages.PERSISTENCE_ERROR.create(e, e.getMessage());
+		}
+		
+	}
 	
 	
 }

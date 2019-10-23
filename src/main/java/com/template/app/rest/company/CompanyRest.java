@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -33,6 +35,18 @@ public class CompanyRest {
 		List<CompanyEntity> listCompanies = companyService.retrieveAll();
 		return listCompanies;
 	}
+	
+	@POST
+	@Path("/create")
+	public CompanyEntity create(CompanyEntity companyEntity) throws AppException{
+		return companyService.create(companyEntity);
+	}
+	@DELETE
+	@Path("/delete")
+	public void delete(CompanyEntity companyEntity) throws AppException{
+		companyService.delete(companyEntity);
+	}
+	
 	@GET
 	@Path("/{id}")
 	public CompanyEntity get( @PathParam("id") Long entityId) throws AppException {
